@@ -1,0 +1,17 @@
+.slider-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: white;
+  background: #3a89a9;
+  width: 12rem;
+  height: 4rem;
+  border-radius: 0 50px;
+  margin-left: 5px;
+}
+
+.slider-button:hover {
+  background: #3589aa;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 5px;
+}
