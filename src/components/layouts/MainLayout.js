@@ -6,7 +6,7 @@ import Faq from "../faq/faq";
 import { faqData } from "../../data/faqData.js";
 
 function MainLayout() {
-  console.log(faqData.length);
+  //console.log(faqData.length);
 
   return (
     <>

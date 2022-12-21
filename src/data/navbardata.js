@@ -21,8 +21,8 @@ export const navbardata = [
   },
   {
     id: 5,
-    label: "Blog",
-    url: "/#blogs", //router için çalış yoksa href kullan daha sonra melikeye sor :)
+    label: "Blogs",
+    url: "/blogs", //router için çalış yoksa href kullan daha sonra melikeye sor :)
   },
   {
     id: 6,

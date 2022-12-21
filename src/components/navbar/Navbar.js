@@ -48,7 +48,6 @@ const Navbar = () => {
                   }}
                 >
                   <a href={item.url}>
-                    {" "}
                     {item.label} <span className="pipe">|</span>{" "}
                   </a>
                 </li>

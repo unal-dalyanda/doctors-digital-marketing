@@ -12,21 +12,21 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 function Home() {
-  const hashs = ["services", "contact", "about-us", "blogs"];
+  const hashs = ["services", "contact", "about-us"];
 
   const location = useLocation();
   useEffect(() => {
     const findHash = hashs.find((hash) => location.hash.includes(hash));
-    console.log(findHash);
+    //console.log(findHash);
 
     if (findHash) {
-      console.log(location.hash);
+      //console.log(location.hash);
       //console.log(element);
       // element.scrollTop = element.offsetTop;
 
       setTimeout(() => {
         const element = document.getElementById(findHash);
-        console.log(element);
+        //console.log(element);
         const distance =
           window.pageYOffset + element.getBoundingClientRect().top;
         window.scrollTo({ top: distance, behavior: "smooth" });

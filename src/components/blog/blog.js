@@ -4,13 +4,19 @@ import { Link } from "react-router-dom";
 import "./blog.css";
 import "../button/button.css";
 
-
 function Blog() {
   return (
     <>
-      <div className="card-blog-container" id="blogs">
+      <div className="card-blog-container" id="">
         {blogData.map((item) => (
-          <div className="blog-wrapper" id={item.header.split(' ').join("") === "SocialMediaManagement" ? "SocialMedia" : item.header.split(' ').join("")}>
+          <div
+            className="blog-wrapper"
+            id={
+              item.header.split(" ").join("") === "SocialMediaManagement"
+                ? "SocialMedia"
+                : item.header.split(" ").join("")
+            }
+          >
             <div className="card-blog" key={item.id}>
               <div className="card-blog-image">
                 <img src={item.imgUrl} alt={item.imgAlt} />
