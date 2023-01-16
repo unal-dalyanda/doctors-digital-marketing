@@ -53,10 +53,10 @@ class BaseController extends Controller
                 'title' => 'Web Management',
                 'items' => array(
                     'pages' => array(
-                        'title'     => 'Pages',
+                        'title'     => 'Sections',
                         'link'      => route('pages'),
                         'is_active' => $this->isOpen(['pages', 'page']),
-                        'icon'      => 'fas fa-book'
+                        'icon'      => 'fas fa-th-list'
                     ),
                     'blogs' => array(
                         'title'     => 'Blogs',
