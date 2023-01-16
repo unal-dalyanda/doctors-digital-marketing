@@ -82,44 +82,8 @@ Route::prefix('admin')->namespace('backend')->middleware(['auth'])->group(functi
     Route::get('/service/delete/{serviceId}', 'ServiceController@delete')
         ->where(['serviceId' => '(\d+)'])
         ->name('service_delete');
-
-    /* Team Route */
-    Route::get('/members', 'TeamController@index')->name('members');
-    Route::get('/member/add', 'TeamController@add')->name('member_add');
-    Route::post('/member/add/save', 'TeamController@addAction')->name('member_add_action');
-    Route::get('/member/edit/{memberId}', 'TeamController@edit')
-        ->where(['memberId' => '(\d+)'])
-        ->name('member_edit');
-    Route::post('/member/edit/save/{memberId}', 'TeamController@editAction')
-        ->where(['memberId' => '(\d+)'])
-        ->name('member_edit_action');
-    Route::get('/member/delete/{memberId}', 'TeamController@delete')
-        ->where(['memberId' => '(\d+)'])
-        ->name('member_delete');
-    Route::get('/team/departments', 'TeamController@departments')->name('departments');
-    Route::post('/team/department/add', 'TeamController@departmentAdd')->name('department_add');
-    Route::get('/team/department/delete/{departmentId}', 'TeamController@departmentDelete')
-        ->where(['departmentId' => '(\d+)'])
-        ->name('department_delete');
 });
 
-Route::namespace('frontend')->group(function () {
-    Route::get('/', 'PageController@index')->name('home');
-    Route::get('/index.html', 'PageController@index');
-    Route::get('/about.html', 'PageController@about')->name('about');
-    Route::get('/contact.html', 'PageController@contact')->name('contact');
-    Route::get('/appointment.html', 'PageController@appointment')->name('appointment');
-    Route::get('/service.html', 'PageController@service')->name('service');
-    Route::get('/team.html', 'PageController@team')->name('team');
+Route::namespace('api')->group(function () {
 
-    Route::get('/blogs.html', 'BlogController@blogs')->name('fr_blogs');
-    Route::get('/blogs.html/{blogPage}', 'BlogController@blogs')
-        ->where(['blogPage' => '(\d+)'])
-        ->name('blog_page');
-
-    Route::get('/blog/{blogSlug}', 'BlogController@blogDetail')
-        ->where(['blogSlug' => '([a-z0-9-]+)'])
-        ->name('blog_detail');
-
-    Route::post('/action/appointment-post', 'ActionController@formPost')->name('appointment_post');
 });
