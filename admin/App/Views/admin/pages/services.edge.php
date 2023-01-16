@@ -106,7 +106,7 @@
     <!-- /.content -->
 
     <div class="modal fade" id="modal-add-service" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Service</h4>
@@ -120,6 +120,10 @@
                         <div class="form-group row">
                             <label>Service Name</label>
                             <input type="text" name="service_name" class="form-control" placeholder="Enter name ..." required>
+                        </div>
+                        <div class="form-group row">
+                            <label>Service Detail</label>
+                            <textarea name="service_detail" class="form-control" rows="3" placeholder="Enter detail text..." required></textarea>
                         </div>
                         <div class="form-group row">
                             <label for="exampleInputFile">Service image</label>
@@ -137,7 +141,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-info">Save</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form>

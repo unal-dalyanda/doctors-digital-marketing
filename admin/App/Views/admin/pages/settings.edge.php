@@ -94,25 +94,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="siteLogo" class="col-sm-2 col-form-label">Site Logo</label>
-                                            <div class="col-sm-4">
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" name="site_logo"
-                                                               class="custom-file-input" id="siteLogo">
-                                                        <label class="custom-file-label" for="exampleInputFile">Select
-                                                            image</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 clearfix">
-                                                <img
-                                                    src="@if(!empty($general_settings->site_logo)) {!! get_asset('uploads/site/' . $general_settings->site_logo) !!} @endif"
-                                                    class="img-fluid img-thumbnail mt-sm-2 float-sm-none float-md-right @if(empty($general_settings->site_logo)) d-none @endif"
-                                                    style="max-width: 250px" id="preview"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
                                                 <button type="submit" class="btn btn-outline-success">Save Changes
                                                 </button>
