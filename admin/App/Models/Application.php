@@ -39,8 +39,12 @@ class Application
 
     public function getApplicationCount()
     {
-        DB::table('applications')->getAll();
-        return DB::numRows();
+        return DB::table('applications')->select('COUNT(*) AS count')->getRow();
+    }
+
+    public function getUnreadApplicationCount()
+    {
+        return DB::table('applications')->select('COUNT(*) AS count')->where('status', '=', 0)->getRow();
     }
 
     public function getApplication(int $applicationId)
