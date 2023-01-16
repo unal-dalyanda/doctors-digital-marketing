@@ -7,7 +7,7 @@
             <a href="{{ route('home') }}" class="nav-link" target="_blank">View Site</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('application_list', ['applicationType' => 'all']) }}" class="nav-link">All Appointments</a>
+            <a href="{{ route('application_list', ['applicationType' => 'all']) }}" class="nav-link">All Contact Requests</a>
         </li>
     </ul>
 

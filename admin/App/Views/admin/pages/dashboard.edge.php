@@ -25,12 +25,12 @@
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="info-box">
-                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-table"></i></span>
+                        <span class="info-box-icon bg-info elevation-1"><i class="fab fa-wpforms"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Appointments</span>
+                            <span class="info-box-text">Contact Requests</span>
                             <span class="info-box-number">
-                                {!! $appointment_count !!} <small>total</small>
+                                {!! $appointment_count->count !!} <small>total</small>
                             </span>
                         </div>
                         <!-- /.info-box-content -->
