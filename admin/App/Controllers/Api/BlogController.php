@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Frontend;
+namespace App\Controllers\Api;
 
 use View, Model, Response;
 
