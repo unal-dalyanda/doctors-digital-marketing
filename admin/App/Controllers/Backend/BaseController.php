@@ -2,7 +2,7 @@
 namespace App\Controllers\Backend;
 
 use System\Kernel\Controller;
-use View, Request;
+use View, Request, Model;
 
 class BaseController extends Controller
 {
@@ -21,25 +21,26 @@ class BaseController extends Controller
                         'icon'      => 'fas fa-tachometer-alt'
                     ),
                     'applications' => array(
-                        'title'     => 'Appointments',
+                        'title'     => 'Contact Requests',
                         'link'      => route('application_list', ['applicationType' => 'all']),
                         'is_active' => $this->isOpen(['applications', 'application']),
-                        'icon'      => 'fas fa-table',
+                        'icon'      => 'fab fa-wpforms',
+                        'badge'     => Model::run('application')->getUnreadApplicationCount(),
                         'submenu'   => array(
                             'applications' => array(
-                                'title'     => 'All Appointments',
+                                'title'     => 'All Requests',
                                 'link'      => route('application_list', ['applicationType' => 'all']),
                                 'is_active' => $this->isActive(route('application_list', ['applicationType' => 'all'])),
                                 'custom_css'=> 'text-info'
                             ),
                             'unread_applications' => array(
-                                'title'     => 'Unread Appointments',
+                                'title'     => 'Unread Requests',
                                 'link'      => route('application_list', ['applicationType' => 'unread']),
                                 'is_active' => $this->isActive(route('application_list', ['applicationType' => 'unread'])),
                                 'custom_css'=> 'text-danger'
                             ),
                             'approved_applications' => array(
-                                'title'     => 'Approved Appointments',
+                                'title'     => 'Approved Requests',
                                 'link'      => route('application_list', ['applicationType' => 'approved']),
                                 'is_active' => $this->isActive(route('application_list', ['applicationType' => 'approved'])),
                                 'custom_css'=> 'text-success'
@@ -80,29 +81,6 @@ class BaseController extends Controller
                         'link'      => route('services'),
                         'is_active' => $this->isActive(route('services')),
                         'icon'      => 'fas fa-columns'
-                    ),
-                    'team' => array(
-                        'title'     => 'Team',
-                        'link'      => route('members'),
-                        'is_active' => $this->isOpen(['members', 'member', 'team']),
-                        'icon'      => 'fas fa-users',
-                        'submenu'   => array(
-                            'members' => array(
-                                'title'     => 'Team Members',
-                                'link'      => route('members'),
-                                'is_active' => $this->isActive(route('members')),
-                            ),
-                            'member_add' => array(
-                                'title'     => 'Add Member',
-                                'link'      => route('member_add'),
-                                'is_active' => $this->isActive(route('member_add')),
-                            ),
-                            'member_department' => array(
-                                'title'     => 'Member Departments',
-                                'link'      => route('departments'),
-                                'is_active' => $this->isActive(route('departments')),
-                            )
-                        )
                     )
                 )
             ),
