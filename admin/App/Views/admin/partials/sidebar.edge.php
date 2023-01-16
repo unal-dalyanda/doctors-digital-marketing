@@ -23,6 +23,9 @@
                                     <p>
                                         {{ $menuItem['title'] }}
                                         <i class="fas fa-angle-left right"></i>
+                                        @if(!empty($menuItem['badge']->count))
+                                            <span class="badge badge-danger right">{{ $menuItem['badge']->count }}</span>
+                                        @endif
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
