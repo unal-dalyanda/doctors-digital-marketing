@@ -81,6 +81,12 @@ class BaseController extends Controller
                         'link'      => route('services'),
                         'is_active' => $this->isActive(route('services')),
                         'icon'      => 'fas fa-columns'
+                    ),
+                    'faq' => array(
+                        'title'     => 'FAQ',
+                        'link'      => route('faq'),
+                        'is_active' => $this->isActive(route('faq')),
+                        'icon'      => 'fas fa-question-circle'
                     )
                 )
             ),
