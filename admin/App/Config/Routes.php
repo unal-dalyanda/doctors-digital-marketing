@@ -82,6 +82,13 @@ Route::prefix('admin')->namespace('backend')->middleware(['auth'])->group(functi
     Route::get('/service/delete/{serviceId}', 'ServiceController@delete')
         ->where(['serviceId' => '(\d+)'])
         ->name('service_delete');
+
+    /* FAQ Route */
+    Route::get('/faq', 'FaqController@index')->name('faq');
+    Route::post('/faq/add', 'FaqController@add')->name('faq_add');
+    Route::get('/faq/delete/{faqId}', 'FaqController@delete')
+        ->where(['faqId' => '(\d+)'])
+        ->name('faq_delete');
 });
 
 Route::namespace('api')->group(function () {
