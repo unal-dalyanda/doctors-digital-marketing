@@ -52,10 +52,10 @@ class FaqController extends BaseController
 
         if($update_faq){
             $flash['code'] = 1;
-            $flash['text'] = 'The FAQ has been successfully added.';
+            $flash['text'] = 'The FAQ has been successfully updated.';
         }else{
             $flash['code'] = 0;
-            $flash['text'] = 'Add FAQ failed! Try again later.';
+            $flash['text'] = 'FAQ Update failed! Try again later.';
         }
 
         Session::setFlash($flash, route('faq_edit', ['faqId' => $faqId]));
