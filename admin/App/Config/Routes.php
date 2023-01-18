@@ -4,7 +4,14 @@ use System\Libs\Router\Router as Route;
 
 Route::set404(function () {
     header('HTTP/1.1 404 Not Found');
-    View::render('errors.404');
+    header('Content-Type: application/json; charset=utf-8');
+
+    $content = [
+        'status' => 'error',
+        'message' => 'The page you requested was not found!'
+    ];
+
+    echo json_encode($content);
 });
 
 Route::prefix('auth')->namespace('backend')->group(function () {
@@ -98,5 +105,13 @@ Route::prefix('admin')->namespace('backend')->middleware(['auth'])->group(functi
 });
 
 Route::prefix('api')->namespace('api')->group(function () {
-
+    Route::get('/home', 'PageController@index')->name('api_home');
+    Route::get('/blogs', 'BlogController@blogs')->name('api_blogs');
+    Route::get('/blogs/{pageNum}', 'BlogController@blogs')
+        ->where(['pageNum' => '(\d+)'])
+        ->name('api_blogs');
+    Route::get('/blog/detail/{blogId}', 'BlogController@blogDetail')
+        ->where(['blogId' => '(\d+)'])
+        ->name('api_blog');
+    Route::post('/action/contact', 'ActionController@formPost')->name('contact_post');
 });
