@@ -57,7 +57,7 @@
                                         <th style="width: 1%">
                                             #
                                         </th>
-                                        <th>Patient name</th>
+                                        <th>Client Name</th>
                                         <th style="width: 8%" class="text-center">Status</th>
                                         <th style="width: 20%" class="text-center">Date</th>
                                         <th>Actions</th>
@@ -81,7 +81,7 @@
                                             </td>
                                             <td>
                                                 @if(!empty($application->appointment_date))
-                                                    Appointment date: {!! Date::set($application->appointment_date)->get('d.m.Y | H:i') !!}
+                                                    Approve date: {!! Date::set($application->appointment_date)->get('d.m.Y | H:i') !!}
                                                 @endif
                                                 <br/>
                                                 <small>
@@ -123,7 +123,7 @@
                                         <th style="width: 1%">
                                             #
                                         </th>
-                                        <th>Patient name</th>
+                                        <th>Client Name</th>
                                         <th style="width: 8%" class="text-center">Status</th>
                                         <th style="width: 20%" class="text-center">Date</th>
                                         <th>Actions</th>

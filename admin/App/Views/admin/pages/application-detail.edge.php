@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <h4>
-                                    {!! $application_data->name !!} Appointment Details
+                                    {!! $application_data->name !!} Request Details
 
                                     @if($application->status == 0)
                                         <small class="badge badge-light"><i class="fas fa-clock"></i> Unread</small>
@@ -69,19 +69,9 @@
                                 <address>
                                     <strong>{!! $application_data->name !!}</strong><br>
                                     Phone: <a
-                                        href="tel:{!! $application_data->phoneNumber !!}">{!! $application_data->phoneNumber !!}</a><br>
+                                        href="tel:{!! $application_data->telephone !!}">{!! $application_data->telephone !!}</a><br>
                                     Email: <a href="mailto:{!! $application_data->email !!}"
                                               target="_blank">{!! $application_data->email !!}</a>
-                                </address>
-                            </div>
-
-                            <div class="col-sm-4 invoice-col"><font _mstmutation="1">
-                                    To
-                                </font>
-                                <address>
-                                    <strong>Doctor: {!! $application_data->doctor !!}</strong><br>
-                                    Insurance Name: {!! $application_data->insuranceName !!}<br>
-                                    Insurance Id: {!! $application_data->insuranceId !!}
                                 </address>
                             </div>
 
@@ -95,11 +85,18 @@
                                 </font></div>
                         </div>
 
-                        <div class="row">
+                        <div class="row invoice-info">
+                            <div class="col-md-12 invoice-col border border-primary">
+                                <strong class="mb-2">Request Message:</strong>
+                                <p>{{ $application_data->message }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
                             <div class="col-md-6">
                                 <div class="card card-primary">
                                     <div class="card-header">
-                                        <h3 class="card-title">Appointment Information System</h3>
+                                        <h3 class="card-title">Request Information System</h3>
                                     </div>
                                     <form
                                         action="{!! route('application_admin_save', ['applicationId' => $application->ID]) !!}"
@@ -126,7 +123,7 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-info">Save</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
                                             <button type="reset" class="btn btn-default float-right">Reset</button>
                                         </div>
                                     </form>
@@ -137,18 +134,17 @@
                         <div class="row no-print">
                             <div class="col-12">
                                 <a href="{!! route('application_mark', ['markType' => 'approved', 'applicationId' => $application->ID]) !!}"
-                                   class="btn btn-success float-right mb-1"><i class="fa fa-check"></i> Submit Mark as
-                                    approved
+                                   class="btn btn-success float-right mb-1"><i class="fa fa-check"></i> Submit Mark as approved
                                 </a>
 
                                 <a href="{!! route('application_mark', ['markType' => 'unread', 'applicationId' => $application->ID]) !!}"
-                                   class="btn btn-warning float-right mb-1 mr-1"><i class="fas fa-clock"></i> Submit Mark as
-                                    unread
+                                   class="btn btn-warning float-right mb-1 mr-1"><i class="fas fa-clock"></i> Submit
+                                    Mark as unread
                                 </a>
 
                                 <a href="{!! route('application_delete', ['applicationId' => $application->ID]) !!}"
                                    class="btn btn-danger float-right mb-1" style="margin-right: 5px;">
-                                    <i class="fas fa-trash-alt"></i> Delete appointment
+                                    <i class="fas fa-trash-alt"></i> Delete request
                                 </a>
                             </div>
                         </div>
