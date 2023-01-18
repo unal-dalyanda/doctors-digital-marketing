@@ -14,22 +14,28 @@ class Blog
 
     public function getBlogCount()
     {
-        DB::table('blogs')->where('status', '=', 1)->getAll();
-        return DB::numRows();
+        return DB::table('blogs')->select('COUNT(*) AS count')->where('status', '=', 1)->getRow();
     }
 
-    public function getBlogs()
+    public function getStickyBlogs()
     {
         return DB::table('blogs')
             ->select('ID, title, slug, cover_image, seo_description, status, publish_date')
             ->where('status', '=', 1)
+            ->where('type', '=', 0)
             ->orderBy('publish_date', 'asc')
             ->getAll();
     }
 
-    public function getRecentBlogs(int $limit)
+    public function getBlogs(int $initial, int $limit)
     {
-        return DB::table('blogs')->orderBy('ID', 'desc')->limit($limit)->getAll();
+        return DB::table('blogs')
+            ->select('ID, title, slug, cover_image, seo_description, status, publish_date')
+            ->where('status', '=', 1)
+            ->where('type', '!=', 0)
+            ->limit($initial, $limit)
+            ->orderBy('publish_date', 'asc')
+            ->getAll();
     }
 
     public function getBlog(int $blogId)
