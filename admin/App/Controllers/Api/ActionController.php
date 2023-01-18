@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Api;
 
-use System\Kernel\Controller, Request, Response, Validation, Session, Model;
+use System\Kernel\Controller, Request, Response, Validation, Model;
 
 class ActionController extends Controller
 {
