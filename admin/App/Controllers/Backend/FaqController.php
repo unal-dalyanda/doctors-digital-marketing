@@ -14,7 +14,7 @@ class FaqController extends BaseController
         View::theme($this->appTheme)->render('pages.faq', $this->pageData);
     }
 
-    public function edit(id $faqId)
+    public function edit(int $faqId)
     {
         $faqData = Model::run('faq')->getFaq($faqId);
         $this->pageData['title'] = $faqData->title . 'Edit | Core-Page';
