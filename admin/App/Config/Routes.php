@@ -85,7 +85,13 @@ Route::prefix('admin')->namespace('backend')->middleware(['auth'])->group(functi
 
     /* FAQ Route */
     Route::get('/faq', 'FaqController@index')->name('faq');
+    Route::get('/faq/edit/{faqId}', 'FaqController@edit')
+        ->where(['faqId' => '(\d+)'])
+        ->name('faq_edit');
     Route::post('/faq/add', 'FaqController@add')->name('faq_add');
+    Route::post('/faq/update/{faqId}', 'FaqController@update')
+        ->where(['faqId' => '(\d+)'])
+        ->name('faq_update');
     Route::get('/faq/delete/{faqId}', 'FaqController@delete')
         ->where(['faqId' => '(\d+)'])
         ->name('faq_delete');

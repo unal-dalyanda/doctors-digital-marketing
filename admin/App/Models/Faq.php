@@ -21,6 +21,11 @@ class Faq
         return DB::table('faq')->insert($data);
     }
 
+    public function updateFaq(int $faqId, $data): int
+    {
+        return DB::table('faq')->where('ID', '=', $faqId)->update($data);
+    }
+
     public function deleteFaq(int $faqId): int
     {
         return DB::table('faq')->where('ID', '=', $faqId)->delete();
