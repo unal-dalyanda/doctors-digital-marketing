@@ -13,8 +13,8 @@ class ActionController extends Controller
             $post_data = [
                 'email'         => Request::post('email'),
                 'name'          => Request::post('name'),
-                'phoneNumber'   => Request::post('telephone'),
-                'message' => Request::post('message'),
+                'telephone'     => Request::post('telephone'),
+                'message'       => Request::post('message'),
             ];
 
             $form_rules = [
@@ -26,7 +26,7 @@ class ActionController extends Controller
                     'label'	=> 'Full Name',
                     'rules'	=> 'required|min_len,3'
                 ],
-                'phoneNumber'	=> [
+                'telephone'	=> [
                     'label'	=> 'Phone Number',
                     'rules'	=> 'required|numeric|min_len,5'
                 ],
@@ -50,8 +50,8 @@ class ActionController extends Controller
                     $flash['status'] = 'success';
                     $flash['message'] = 'Your contact request has been successfully received.';
                 }else{
-                    $flash['code'] = 0;
-                    $flash['text'] = 'Appointment registration failed. Please try again.';
+                    $flash['status'] = 'error';
+                    $flash['message'] = 'Contact request registration failed. Please try again.';
                 }
 
             }else{
