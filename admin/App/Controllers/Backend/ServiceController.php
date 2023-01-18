@@ -33,6 +33,7 @@ class ServiceController extends BaseController
         $insertData = [
             'service_name' => Request::post('service_name'),
             'service_detail' => Request::post('service_detail'),
+            'service_link' => Request::post('service_link'),
             'service_image' => $imageName
         ];
 

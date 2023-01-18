@@ -117,38 +117,12 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="faxNumber" class="col-sm-2 col-form-label">FAX
-                                                Number</label>
-                                            <div class="col-sm-10">
-                                                <input type="tel" name="fax_number" class="form-control"
-                                                       id="faxNumber"
-                                                       value="{!! $contact_settings->fax_number !!}"
-                                                       placeholder="FAX number">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label for="eMail" class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-10">
                                                 <input type="email" name="main_email" class="form-control"
                                                        id="eMail"
                                                        value="{!! $contact_settings->main_email !!}"
                                                        placeholder="Email address">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="mainOfficeAddress"
-                                                   class="col-sm-2 col-form-label">Main Office Address</label>
-                                            <div class="col-sm-10">
-                                                    <textarea name="main_office_address" class="form-control" rows="4"
-                                                              id="mainOfficeAddress"
-                                                              placeholder="Main office address">{!! $contact_settings->main_office_address !!}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Opening Hours</label>
-                                            <div class="col-sm-10">
-                                                    <textarea name="opening_hours" class="form-control" rows="4"
-                                                              placeholder="Opening hours detail">{!! $contact_settings->opening_hours !!}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -203,56 +177,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-md-2 col-form-label">Other Office
-                                                Address</label>
-                                            <div class="col-sm-10 col-md-6">
-                                                <div class="other_office_container">
-                                                    @php
-                                                        $office_count = 0;
-                                                    @endphp
-
-                                                    @if(!empty($contact_settings->office_address[0]))
-                                                        @foreach($contact_settings->office_address as $oth_office)
-                                                            <div class="row">
-                                                                <div class="form-group col-sm-12">
-                                                                    <label>Office address</label>
-                                                                    <div class="input-group">
-                                                                        <textarea name="office_address[]"
-                                                                                  class="form-control" rows="3"
-                                                                                  placeholder="Enter office address ...">{!! $oth_office !!}</textarea>
-                                                                        <span class="input-group-append">
-                                                                            <button type="button"
-                                                                                    onclick="fieldDelete(this, 'office')"
-                                                                                    class="btn btn-outline-danger btn-flat delete">
-                                                                                <i class="fas fa-times"></i> Delete
-                                                                            </button>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            @php $office_count++ @endphp
-                                                        @endforeach
-                                                    @else
-                                                        <div class="row">
-                                                            <div class="form-group col-sm-12">
-                                                                <label>Office address</label>
-                                                                <textarea name="office_address[]" class="form-control"
-                                                                          rows="3"
-                                                                          placeholder="Enter office address ..."></textarea>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                                <div class="office_button clearfix">
-                                                    <button type="button" onclick="addField('office')"
-                                                            class="btn btn-outline-primary float-right mt-2 add_office_field">
-                                                        <i class="fa fa-plus"></i> Add office
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label class="col-sm-2 col-md-2 col-form-label">Social Media
                                                 Accounts</label>
                                             <div class="col-sm-10 col-md-6">
@@ -301,9 +225,7 @@
                                                             <div class="form-group col-sm-4">
                                                                 <label>Select social media</label>
                                                                 <select name="social[type][]" class="form-control">
-                                                                    <option value="" selected disabled hidden>Please
-                                                                        select
-                                                                    </option>
+                                                                    <option value="" selected disabled hidden>Please select</option>
                                                                     <option value="fa-twitter">Twitter</option>
                                                                     <option value="fa-instagram">Instagram</option>
                                                                     <option value="fa-linkedin-in">LinkedIn</option>

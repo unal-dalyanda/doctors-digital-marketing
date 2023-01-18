@@ -126,6 +126,10 @@
                             <textarea name="service_detail" class="form-control" rows="3" placeholder="Enter detail text..." required></textarea>
                         </div>
                         <div class="form-group row">
+                            <label>Service Link</label>
+                            <input type="text" name="service_link" class="form-control" placeholder="Enter link ..." required>
+                        </div>
+                        <div class="form-group row">
                             <label for="exampleInputFile">Service image</label>
 
                             <div class="mb-2">
