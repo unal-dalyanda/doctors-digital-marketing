@@ -97,6 +97,6 @@ Route::prefix('admin')->namespace('backend')->middleware(['auth'])->group(functi
         ->name('faq_delete');
 });
 
-Route::namespace('api')->group(function () {
+Route::prefix('api')->namespace('api')->group(function () {
 
 });
