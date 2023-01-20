@@ -20,6 +20,7 @@ class BlogController extends BaseController
     {
         $this->pageData['title'] = 'Blog Add | Core-Page';
         $this->pageData['page_title'] = 'Add New Blog';
+        $this->pageData['categories'] = Model::run('blog')->getCategories();
 
         View::theme($this->appTheme)->render('pages.blog.blog-add', $this->pageData);
     }
@@ -71,6 +72,7 @@ class BlogController extends BaseController
         $this->pageData['page_title'] = 'Blog Edit';
         $this->pageData['blog'] = Model::run('blog')->getBlog($blogId);
         $this->pageData['blog_id'] = $blogId;
+        $this->pageData['categories'] = Model::run('blog')->getCategories();
 
         View::theme($this->appTheme)->render('pages.blog.blog-edit', $this->pageData);
     }
@@ -166,6 +168,47 @@ class BlogController extends BaseController
         }
 
         Session::setFlash($flash, route('blogs'));
+    }
+
+    public function categories()
+    {
+        $this->pageData['title'] = 'Categories | Core-Page';
+        $this->pageData['categories'] = Model::run('blog')->getCategories();
+
+        View::theme($this->appTheme)->render('pages.blog.categories', $this->pageData);
+    }
+
+    public function categoryAdd()
+    {
+        $categoryData = [
+            'category_name' => Request::post('category_name'),
+            'category_slug' => slug(Request::post('category_name'))
+        ];
+
+        $add_service = Model::run('blog')->addCategory($categoryData);
+
+        if($add_service){
+            $flash['code'] = 1;
+            $flash['text'] = 'The category has been successfully added.';
+        }else{
+            $flash['code'] = 0;
+            $flash['text'] = 'Add category failed! Try again later.';
+        }
+
+        Session::setFlash($flash, route('categories'));
+    }
+
+    public function categoryDelete($categoryId)
+    {
+        if(Model::run('blog')->deleteCategory($categoryId)){
+            $flash['code'] = 1;
+            $flash['text'] = 'The category was successfully deleted.';
+        }else{
+            $flash['code'] = 0;
+            $flash['text'] = 'Category deletion failed. Try again later.';
+        }
+
+        Session::setFlash($flash, route('categories'));
     }
 
     private function uploadImage($file): bool
