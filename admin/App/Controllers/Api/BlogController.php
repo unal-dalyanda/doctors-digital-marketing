@@ -30,6 +30,30 @@ class BlogController extends BaseController
         echo json_encode($content);
     }
 
+    public function blogsWithCategory(int $categoryId = null, int $blogPage = null)
+    {
+        $limit = 20;
+        $page_number = is_null($blogPage) ? 1 : ($blogPage == 0 ? 1 : $blogPage);
+        $blog_count = intval(Model::run('blog')->getBlogCount($categoryId)->count);
+        $total_page = ceil($blog_count / $limit);
+        $initial_page = ($page_number - 1) * $limit;
+
+        $content = [
+            'title' => 'Categories - ' . $this->general_site_title,
+            'description' => $this->general_settings->site_description,
+            'keywords' => json_decode($this->seo_settings->seo_keywords),
+            'current_page' => $page_number,
+            'total_page' => $total_page,
+            'post' => Model::run('blog')->getBlogsWithCategoryId($initial_page, $limit, $categoryId),
+            'contact_email' => $this->pageData['main_email'],
+            'social_phone' => $this->pageData['main_phone'],
+            'social_media' => $this->pageData['social_media'],
+        ];
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($content);
+    }
+
     public function blogDetail(int $blogId)
     {
         $blog_data = Model::run('blog')->getBlog($blogId);
