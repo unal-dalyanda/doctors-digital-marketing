@@ -48,7 +48,7 @@
                                             <span class="input-group-text">Blog title</span>
                                         </div>
                                         <input type="text" name="title" class="form-control" aria-describedby="pageSlug"
-                                               placeholder="Write your blog title here ...">
+                                               placeholder="Write your blog title here ..." required>
                                     </div>
                                 </div>
                             </div>
@@ -100,6 +100,19 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Publishing tools</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Select Category</label>
+                                    <select name="category_id" class="form-control" required>
+                                        <option value="" selected disabled hidden>Please select a category</option>
+                                        @foreach($categories as $category)
+                                            <option value="{!! $category->ID !!}">{!! $category->category_name !!}</option>
+                                        @endforeach
+                                        <option value="0">Uncategorized</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="card-footer">
