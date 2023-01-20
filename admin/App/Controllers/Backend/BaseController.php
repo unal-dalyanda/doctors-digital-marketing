@@ -73,6 +73,11 @@ class BaseController extends Controller
                                 'title'     => 'Add Blog',
                                 'link'      => route('blog_add'),
                                 'is_active' => $this->isActive(route('blog_add')),
+                            ),
+                            'category' => array(
+                                'title'     => 'Categories',
+                                'link'      => route('categories'),
+                                'is_active' => $this->isActive(route('categories')),
                             )
                         )
                     ),
