@@ -57,6 +57,7 @@
                                         #
                                     </th>
                                     <th>Title</th>
+                                    <th>Category</th>
                                     <th style="width: 8%" class="text-center">Status</th>
                                     <th style="width: 20%" class="text-center">Date</th>
                                     <th>Action</th>
@@ -68,6 +69,13 @@
                                     <tr>
                                         <td>{!! $blog->ID !!}</td>
                                         <td>{!! $blog->title !!}</td>
+                                        <td>
+                                            @if($blog->category_id == 0)
+                                                Uncategorized
+                                            @else
+                                                {!! $blog->category_name !!}
+                                            @endif
+                                        </td>
                                         <td class="project-state">
                                             @if($blog->status == '1')
                                                 <small class="badge badge-success"><i class="fas fa-check"></i> Publish</small>
@@ -100,6 +108,7 @@
                                         #
                                     </th>
                                     <th>Title</th>
+                                    <th>Category</th>
                                     <th style="width: 8%" class="text-center">Status</th>
                                     <th style="width: 20%" class="text-center">Date</th>
                                     <th>Action</th>
