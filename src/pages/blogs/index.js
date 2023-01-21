@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Blog from "../../components/blog/blog";
-import { useParams } from "react-router-dom";
 import "./style.css";
-import Post from "../../components/post/post";
+import { Helmet } from "react-helmet";
+
 
 function Blogs() {
   return (
     <>
-      {/* <Post /> */}
+          <Helmet>
+        <title>Blogs</title>
+        <meta
+          name="description"
+          content="Doctors Digital Marketing Blogs"
+        />
+      </Helmet>
       <Blog />
     </>
   );
