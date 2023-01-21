@@ -53,7 +53,8 @@
     <!-- Main content -->
     <section class="content data-table-content">
         <div class="container-fluid">
-            <form action="{!! route('blog_edit_action', ['blogId' => $blog_id]) !!}" method="post" enctype="multipart/form-data">
+            <form action="{!! route('blog_edit_action', ['blogId' => $blog_id]) !!}" method="post"
+                  enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="card">
@@ -108,7 +109,8 @@
                                         <div class="form-group">
                                             <label>SEO keywords <small class="text-muted">Press enter or put a comma
                                                     after each keyword.</small></label>
-                                            <input name="seo_keywords" value="{{$blog->seo_keyword}}" placeholder="write some tags">
+                                            <input name="seo_keywords" value="{{$blog->seo_keyword}}"
+                                                   placeholder="write some tags">
                                         </div>
                                     </div>
                                 </div>
@@ -120,6 +122,22 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Publishing tools</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Select Category</label>
+                                    <select name="category_id" class="form-control" required>
+                                        <option value="" disabled hidden>Please select a category</option>
+                                        @foreach($categories as $category)
+                                            <option
+                                                value="{!! $category->ID !!}"
+                                                {!! $blog->category_id == $category->ID ? 'selected' : '' !!}
+                                            >{!! $category->category_name !!}</option>
+                                        @endforeach
+                                        <option value="0" {!! $blog->category_id == 0 ? 'selected' : '' !!}>Uncategorized</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="card-footer">
@@ -142,7 +160,9 @@
                                     <label for="exampleInputFile">Featured image</label>
 
                                     <div class="mb-2">
-                                        <img src="{!! get_asset('uploads/blogs/' . $blog->cover_image) !!}" class="img-fluid img-thumbnail @if(empty($blog->cover_image)) d-none @endif" id="preview"/>
+                                        <img src="{!! get_asset('uploads/blogs/' . $blog->cover_image) !!}"
+                                             class="img-fluid img-thumbnail @if(empty($blog->cover_image)) d-none @endif"
+                                             id="preview"/>
                                     </div>
                                     <div class="input-group">
                                         <div class="custom-file">
@@ -189,7 +209,7 @@
         var el = document.createElement('div');
         document.body.appendChild(el);
 
-        tinymce.PluginManager.add('systemgallery', function(editor, url) {
+        tinymce.PluginManager.add('systemgallery', function (editor, url) {
             var openDialog = function () {
                 return editor.windowManager.openUrl({
                     title: 'Image Gallery',
@@ -222,17 +242,17 @@
                 const json = JSON.parse(xhr.responseText);
 
                 if (xhr.status === 400) {
-                    reject({ message: json.message, remove: true });
+                    reject({message: json.message, remove: true});
                     return;
                 }
 
                 if (xhr.status === 403) {
-                    reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+                    reject({message: 'HTTP Error: ' + xhr.status, remove: true});
                     return;
                 }
 
                 if (xhr.status === 500) {
-                    reject({ message: json.message, remove: true });
+                    reject({message: json.message, remove: true});
                     return;
                 }
 

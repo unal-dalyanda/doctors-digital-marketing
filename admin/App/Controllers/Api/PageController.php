@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Api;
 
-use View, Model;
+use Model, Response;
 
 class PageController extends BaseController
 {
@@ -13,55 +13,23 @@ class PageController extends BaseController
         $page_title = !empty($page_data->seo_title) ? $page_data->seo_title : 'Home';
 
         $this->pageDataGenerator($page_title, $page_data);
-        $this->pageData['about'] = Model::run('page')->getPage(2);
-        $this->pageData['members'] = Model::run('team')->getMembers();
 
-        View::theme($this->appTheme)->render('index', $this->pageData);
-    }
+        $content = [
+            'title' => $this->pageData['title'],
+            'description' => $this->pageData['description'],
+            'keywords' => $this->pageData['keywords'],
+            'services' => Model::run('service')->getServices(),
+            'about' => Model::run('page')->getPage(2),
+            'home_blog' => Model::run('blog')->getStickyBlogs(),
+            'faq' => Model::run('faq')->getFaqs(),
+            'contact_email' => $this->pageData['main_email'],
+            'social_phone' => $this->pageData['main_phone'],
+            'social_media' => $this->pageData['social_media'],
 
-    public function about()
-    {
-        $page_data = Model::run('page')->getPage(2);
-        $page_title = !empty($page_data->seo_title) ? $page_data->seo_title : 'About Us';
+        ];
 
-        $this->pageDataGenerator($page_title, $page_data);
-
-        View::theme($this->appTheme)->render('pages.about', $this->pageData);
-    }
-
-    public function service()
-    {
-        $page_data = Model::run('page')->getPage(3);
-        $page_title = !empty($page_data->seo_title) ? $page_data->seo_title : 'Our Services';
-
-        $this->pageDataGenerator($page_title, $page_data);
-        $this->pageData['services'] = Model::run('service')->getServices();
-
-        View::theme($this->appTheme)->render('pages.service', $this->pageData);
-    }
-
-    public function team()
-    {
-        $this->pageDataGenerator('Doctors', null);
-        $this->pageData['members'] = Model::run('team')->getMembers();
-
-        View::theme($this->appTheme)->render('pages.team', $this->pageData);
-    }
-
-    public function contact()
-    {
-        $this->pageDataGenerator('Contact', null);
-        $this->pageData['other_offices'] = $this->contact_settings->office_address;
-        $this->pageData['other_phone'] = $this->contact_settings->phone_numbers;
-
-        View::theme($this->appTheme)->render('pages.contact', $this->pageData);
-    }
-
-    public function appointment()
-    {
-        $this->pageDataGenerator('Appointment', null);
-
-        View::theme($this->appTheme)->render('pages.appointment', $this->pageData);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($content);
     }
 
     private function pageTitleGenerator($page_title): string
@@ -85,5 +53,4 @@ class PageController extends BaseController
         }
 
     }
-
 }

@@ -20,6 +20,7 @@ class BlogController extends BaseController
     {
         $this->pageData['title'] = 'Blog Add | Core-Page';
         $this->pageData['page_title'] = 'Add New Blog';
+        $this->pageData['categories'] = Model::run('blog')->getCategories();
 
         View::theme($this->appTheme)->render('pages.blog.blog-add', $this->pageData);
     }
@@ -46,10 +47,11 @@ class BlogController extends BaseController
             'content' => Request::post('content'),
             'cover_image' => $imageName,
             'seo_title' => Request::post('seo_title'),
-            'seo_description' => !empty(Request::post('seo_description')) ? Request::post('seo_description') : substr(strip_tags(Request::post('content')), 0, 150),
+            'seo_description' => !empty(Request::post('seo_description')) ? Request::post('seo_description') : substr(trim(strip_tags(Request::post('content'))), 0, 150),
             'seo_keyword' => !empty(Request::post('seo_keywords')) ? Request::post('seo_keywords') : null,
             'status' => Request::post('submit') == 'publish' ? 1 : 0,
-            'publish_date' => Date::now()->get('Y-m-d')
+            'publish_date' => Date::now()->get('Y-m-d'),
+            'category_id' => Request::post('category_id')
         ];
 
         $add_blog = Model::run('blog')->addBlog($insertData);
@@ -71,6 +73,7 @@ class BlogController extends BaseController
         $this->pageData['page_title'] = 'Blog Edit';
         $this->pageData['blog'] = Model::run('blog')->getBlog($blogId);
         $this->pageData['blog_id'] = $blogId;
+        $this->pageData['categories'] = Model::run('blog')->getCategories();
 
         View::theme($this->appTheme)->render('pages.blog.blog-edit', $this->pageData);
     }
@@ -83,7 +86,7 @@ class BlogController extends BaseController
             $cover_image = Model::run('blog')->getCoverImage($blogId);
 
             if (!empty($cover_image->cover_image)) {
-                if(file_exists(public_path('uploads/blogs/' . $cover_image->cover_image))){
+                if (file_exists(public_path('uploads/blogs/' . $cover_image->cover_image))) {
                     unlink(public_path('uploads/blogs/' . $cover_image->cover_image));
                 }
             }
@@ -96,7 +99,7 @@ class BlogController extends BaseController
 
                 Session::setFlash($flash, route('blog_edit', ['blogId' => $blogId]));
             }
-        }else{
+        } else {
             $cover_image = Model::run('blog')->getCoverImage($blogId);
             if (!empty($cover_image->cover_image)) {
                 $imageName = $cover_image->cover_image;
@@ -112,7 +115,8 @@ class BlogController extends BaseController
             'seo_description' => Request::post('seo_description'),
             'seo_keyword' => !empty(Request::post('seo_keywords')) ? Request::post('seo_keywords') : null,
             'status' => Request::post('submit') == 'publish' ? 1 : 0,
-            'publish_date' => Date::now()->get('Y-m-d')
+            'publish_date' => Date::now()->get('Y-m-d'),
+            'category_id' => Request::post('category_id')
         ];
 
         $update_blog = Model::run('blog')->updateBlog($blogId, $updateData);
@@ -133,7 +137,7 @@ class BlogController extends BaseController
         $cover_image = Model::run('blog')->getCoverImage($blogId);
 
         if (!empty($cover_image->cover_image)) {
-            if(file_exists(public_path('uploads/blogs/' . $cover_image->cover_image))){
+            if (file_exists(public_path('uploads/blogs/' . $cover_image->cover_image))) {
                 if (unlink(public_path('uploads/blogs/' . $cover_image->cover_image))) {
                     if (Model::run('blog')->deleteBlog($blogId)) {
                         $flash['code'] = 1;
@@ -146,7 +150,7 @@ class BlogController extends BaseController
                     $flash['code'] = 0;
                     $flash['text'] = 'The operation is invalid because the blog image is not deleted.';
                 }
-            }else{
+            } else {
                 if (Model::run('blog')->deleteBlog($blogId)) {
                     $flash['code'] = 1;
                     $flash['text'] = 'The blog post was successfully deleted.';
@@ -155,7 +159,7 @@ class BlogController extends BaseController
                     $flash['text'] = 'Blog post deletion failed. Try again later.';
                 }
             }
-        }else{
+        } else {
             if (Model::run('blog')->deleteBlog($blogId)) {
                 $flash['code'] = 1;
                 $flash['text'] = 'The blog post was successfully deleted.';
@@ -166,6 +170,47 @@ class BlogController extends BaseController
         }
 
         Session::setFlash($flash, route('blogs'));
+    }
+
+    public function categories()
+    {
+        $this->pageData['title'] = 'Categories | Core-Page';
+        $this->pageData['categories'] = Model::run('blog')->getCategories();
+
+        View::theme($this->appTheme)->render('pages.blog.categories', $this->pageData);
+    }
+
+    public function categoryAdd()
+    {
+        $categoryData = [
+            'category_name' => Request::post('category_name'),
+            'category_slug' => slug(Request::post('category_name'))
+        ];
+
+        $add_service = Model::run('blog')->addCategory($categoryData);
+
+        if ($add_service) {
+            $flash['code'] = 1;
+            $flash['text'] = 'The category has been successfully added.';
+        } else {
+            $flash['code'] = 0;
+            $flash['text'] = 'Add category failed! Try again later.';
+        }
+
+        Session::setFlash($flash, route('categories'));
+    }
+
+    public function categoryDelete($categoryId)
+    {
+        if (Model::run('blog')->deleteCategory($categoryId)) {
+            $flash['code'] = 1;
+            $flash['text'] = 'The category was successfully deleted.';
+        } else {
+            $flash['code'] = 0;
+            $flash['text'] = 'Category deletion failed. Try again later.';
+        }
+
+        Session::setFlash($flash, route('categories'));
     }
 
     private function uploadImage($file): bool

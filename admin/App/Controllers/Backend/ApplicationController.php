@@ -9,16 +9,16 @@ class ApplicationController extends BaseController
     public function applicationList(string $applicationType)
     {
         if ($applicationType == 'all') {
-            $this->pageData['title'] = 'Appointment List | Core-Page';
-            $this->pageData['page_title'] = 'Appointments';
+            $this->pageData['title'] = 'Request List | Core-Page';
+            $this->pageData['page_title'] = 'Requests';
             $this->pageData['applications'] = Model::run('application')->getApplications();
         } elseif ($applicationType == 'unread') {
-            $this->pageData['title'] = 'Unread Appointments | Core-Page';
-            $this->pageData['page_title'] = 'Unread Appointments';
+            $this->pageData['title'] = 'Unread Request | Core-Page';
+            $this->pageData['page_title'] = 'Unread Request';
             $this->pageData['applications'] = Model::run('application')->getApplicationsWithType(0);
         } elseif ($applicationType == 'approved') {
-            $this->pageData['title'] = 'Approved Appointments | Core-Page';
-            $this->pageData['page_title'] = 'Approved Appointments';
+            $this->pageData['title'] = 'Approved Request | Core-Page';
+            $this->pageData['page_title'] = 'Approved Request';
             $this->pageData['applications'] = Model::run('application')->getApplicationsWithType(2);
         }
 
@@ -27,8 +27,8 @@ class ApplicationController extends BaseController
 
     public function detail($applicationId)
     {
-        $this->pageData['title'] = 'Appointment Details | Core-Page';
-        $this->pageData['page_title'] = 'Appointment Details';
+        $this->pageData['title'] = 'Request Details | Core-Page';
+        $this->pageData['page_title'] = 'Request Details';
         $this->pageData['application'] = Model::run('application')->getApplication($applicationId);
 
         View::theme($this->appTheme)->render('pages.application-detail', $this->pageData);
@@ -38,10 +38,10 @@ class ApplicationController extends BaseController
     {
         if (Model::run('application')->deleteApplication($applicationId)) {
             $flash['code'] = 1;
-            $flash['text'] = 'The appointment was successfully deleted.';
+            $flash['text'] = 'The request was successfully deleted.';
         } else {
             $flash['code'] = 0;
-            $flash['text'] = 'Appointment deletion failed. Try again later.';
+            $flash['text'] = 'Request deletion failed. Try again later.';
         }
 
         Session::setFlash($flash, route('application_list', ['applicationType' => 'all']));
@@ -61,10 +61,10 @@ class ApplicationController extends BaseController
 
         if ($application_update) {
             $flash['code'] = 1;
-            $flash['text'] = 'The appointment is marked as '.$markType.'.';
+            $flash['text'] = 'The request is marked as '.$markType.'.';
         } else {
             $flash['code'] = 0;
-            $flash['text'] = 'The appointment status could not be changed. Try again later.';
+            $flash['text'] = 'The request status could not be changed. Try again later.';
         }
 
         Session::setFlash($flash, route('application_list', ['applicationType' => 'all']));
@@ -80,10 +80,10 @@ class ApplicationController extends BaseController
 
         if ($application_save) {
             $flash['code'] = 1;
-            $flash['text'] = 'Appointment details updated successfully.';
+            $flash['text'] = 'Request details updated successfully.';
         } else {
             $flash['code'] = 0;
-            $flash['text'] = 'Appointment details could not be updated!';
+            $flash['text'] = 'Request details could not be updated!';
         }
 
         Session::setFlash($flash, route('application_detail', ['applicationId' => $applicationId]));

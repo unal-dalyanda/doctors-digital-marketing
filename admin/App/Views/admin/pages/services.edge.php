@@ -18,7 +18,10 @@
                             <div class="alert alert-danger alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                 <h5><i class="icon fas fa-ban"></i> Alert!</h5>
-                                {!! $flash['text'] !!}
+                                {!! $flash['text'] !!}<br />
+                                <p>
+                                    {!! $flash['error_message'] !!}
+                                </p>
                             </div>
                         @else
                             <div class="alert alert-success alert-dismissible mt-2">
@@ -124,6 +127,10 @@
                         <div class="form-group row">
                             <label>Service Detail</label>
                             <textarea name="service_detail" class="form-control" rows="3" placeholder="Enter detail text..." required></textarea>
+                        </div>
+                        <div class="form-group row">
+                            <label>Service Link</label>
+                            <input type="text" name="service_link" class="form-control" placeholder="Enter link ..." required>
                         </div>
                         <div class="form-group row">
                             <label for="exampleInputFile">Service image</label>

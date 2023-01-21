@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Backend;
 
-use Model, Request, Upload, Session, View;
+use Model, Request, Upload, Session, DB, View;
 
 class ServiceController extends BaseController
 {
@@ -33,6 +33,7 @@ class ServiceController extends BaseController
         $insertData = [
             'service_name' => Request::post('service_name'),
             'service_detail' => Request::post('service_detail'),
+            'service_link' => Request::post('service_link'),
             'service_image' => $imageName
         ];
 
@@ -44,6 +45,7 @@ class ServiceController extends BaseController
         }else{
             $flash['code'] = 0;
             $flash['text'] = 'Add service failed! Try again later.';
+            $flash['error_message'] = DB::getError();
         }
 
         Session::setFlash($flash, route('services'));
@@ -73,7 +75,7 @@ class ServiceController extends BaseController
 
     private function uploadImage($file): bool
     {
-        Upload::allowedTypes(['jpg', 'png']);
+        Upload::allowedTypes(['jpg', 'png', 'webp']);
         Upload::maxSize(2000);
         Upload::uploadPath(public_path('uploads/services'));
         Upload::file($file);

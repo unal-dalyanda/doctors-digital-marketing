@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{!! $page_title !!}</h1>
+                    <h1>Categories</h1>
                     @if(Session::hasFlash())
                         @php $flash = Session::getFlash() @endphp
                         @if($flash['code'] == 0)
@@ -32,7 +32,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('admin_dashboard')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">{!! $page_title !!}</li>
+                        <li class="breadcrumb-item active">Categories</li>
                     </ol>
                 </div>
             </div>
@@ -46,8 +46,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">{!! $page_title !!} <small>(Listed from newest to oldest.)</small>
-                            </h3>
+                            <h3 class="card-title">Category list</h3>
+                            <div class="card-tools">
+                                <a href="" class="btn btn-tool btn-sm btn-outline-success" data-toggle="modal" data-target="#modal-add-category">
+                                    <i class="fas fa-plus"></i> Add new category
+                                </a>
+                            </div>
                         </div>
                         <div class="card-body p-0">
                             <table id="example2" class="table table-striped table-hover projects">
@@ -56,43 +60,20 @@
                                     <th style="width: 1%">
                                         #
                                     </th>
-                                    <th>Title</th>
-                                    <th>Category</th>
-                                    <th style="width: 8%" class="text-center">Status</th>
-                                    <th style="width: 20%" class="text-center">Date</th>
+                                    <th>Category Name</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
-                                @foreach($blogs as $blog)
+                                @foreach($categories as $category)
                                     <tr>
-                                        <td>{!! $blog->ID !!}</td>
-                                        <td>{!! $blog->title !!}</td>
+                                        <td>{!! $category->ID !!}</td>
                                         <td>
-                                            @if($blog->category_id == 0)
-                                                Uncategorized
-                                            @else
-                                                {!! $blog->category_name !!}
-                                            @endif
-                                        </td>
-                                        <td class="project-state">
-                                            @if($blog->status == '1')
-                                                <small class="badge badge-success"><i class="fas fa-check"></i> Publish</small>
-                                            @else
-                                                <small class="badge badge-light"><i class="fas fa-clock"></i> Draft</small>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            Publish date: {!! $blog->publish_date !!}
+                                            {!! $category->category_name !!}
                                         </td>
                                         <td class="project-actions text-right">
                                             <div class="btn-group">
-                                                <a href="{!! route('blog_edit', ['blogId' => $blog->ID]) !!}"
-                                                   type="button" class="btn btn-outline-dark btn-sm" title="Edit">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="{!! route('blog_delete', ['blogId' => $blog->ID]) !!}"
+                                                <a href="{!! route('category_delete', ['categoryId' => $category->ID]) !!}"
                                                    type="button" class="btn btn-outline-danger btn-sm" title="Delete">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
@@ -100,17 +81,13 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
                                 </tbody>
                                 <tfoot>
                                 <tr>
                                     <th style="width: 1%">
                                         #
                                     </th>
-                                    <th>Title</th>
-                                    <th>Category</th>
-                                    <th style="width: 8%" class="text-center">Status</th>
-                                    <th style="width: 20%" class="text-center">Date</th>
+                                    <th>Category Name</th>
                                     <th>Action</th>
                                 </tr>
                                 </tfoot>
@@ -127,6 +104,33 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+    <div class="modal fade" id="modal-add-category" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Category</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <form action="{!! route('category_add') !!}" method="post" class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label>Category Name</label>
+                            <input type="text" name="category_name" class="form-control" placeholder="Enter name ..." required>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('js')

@@ -4,7 +4,14 @@ use System\Libs\Router\Router as Route;
 
 Route::set404(function () {
     header('HTTP/1.1 404 Not Found');
-    View::render('errors.404');
+    header('Content-Type: application/json; charset=utf-8');
+
+    $content = [
+        'status' => 'error',
+        'message' => 'The page you requested was not found!'
+    ];
+
+    echo json_encode($content);
 });
 
 Route::prefix('auth')->namespace('backend')->group(function () {
@@ -63,18 +70,21 @@ Route::prefix('admin')->namespace('backend')->middleware(['auth'])->group(functi
     Route::get('/blogs', 'BlogController@index')->name('blogs');
     Route::get('/blog/add', 'BlogController@add')->name('blog_add');
     Route::post('/blog/save', 'BlogController@save')->name('blog_add_action');
-
     Route::get('/blog/edit/{blogId}', 'BlogController@edit')
         ->where(['blogId' => '(\d+)'])
         ->name('blog_edit');
-
     Route::post('/blog/edit/save/{blogId}', 'BlogController@editAction')
         ->where(['blogId' => '(\d+)'])
         ->name('blog_edit_action');
-
     Route::get('/blog/delete/{blogId}', 'BlogController@delete')
         ->where(['blogId' => '(\d+)'])
         ->name('blog_delete');
+
+    Route::get('/categories', 'BlogController@categories')->name('categories');
+    Route::post('/category/add', 'BlogController@categoryAdd')->name('category_add');
+    Route::get('/category/delete/{categoryId}', 'BlogController@categoryDelete')
+        ->where(['categoryId' => '(\d+)'])
+        ->name('category_delete');
 
     /* Services Route */
     Route::get('/services', 'ServiceController@index')->name('services');
@@ -98,5 +108,19 @@ Route::prefix('admin')->namespace('backend')->middleware(['auth'])->group(functi
 });
 
 Route::prefix('api')->namespace('api')->group(function () {
-
+    Route::get('/home', 'PageController@index')->name('api_home');
+    Route::get('/blogs', 'BlogController@blogs')->name('api_blogs');
+    Route::get('/blogs/{pageNum}', 'BlogController@blogs')
+        ->where(['pageNum' => '(\d+)'])
+        ->name('api_blogs');
+    Route::get('/blogs/{categoryId}/{pageNum}', 'BlogController@blogsWithCategory')
+        ->where([
+            'categoryId'    => '(\d+)',
+            'pageNum'       => '(\d+)'
+        ])
+        ->name('api_blogs');
+    Route::get('/blog/detail/{blogId}', 'BlogController@blogDetail')
+        ->where(['blogId' => '(\d+)'])
+        ->name('api_blog');
+    Route::post('/action/contact', 'ActionController@formPost')->name('contact_post');
 });

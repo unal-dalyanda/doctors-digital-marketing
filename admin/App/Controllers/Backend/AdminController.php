@@ -16,10 +16,9 @@ class AdminController extends BaseController
     public function index()
     {
         $this->pageData['title'] = 'Panel | Core-Page';
-        $this->pageData['appointment_count'] = Model::run('application')->getApplicationCount();
+        $this->pageData['contact_count'] = Model::run('application')->getApplicationCount();
         $this->pageData['blog_count'] = Model::run('blog')->getBlogCount();
         $this->pageData['recent_applications'] = Model::run('application')->getRecentApplications(5);
-        $this->pageData['today_applications'] = Model::run('application')->getTodayApplications(5);
 
         View::theme($this->appTheme)->render('pages.dashboard', $this->pageData);
     }

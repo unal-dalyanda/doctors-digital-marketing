@@ -30,7 +30,7 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Contact Requests</span>
                             <span class="info-box-number">
-                                {!! $appointment_count->count !!} <small>total</small>
+                                {!! $contact_count->count !!} <small>total</small>
                             </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -45,7 +45,7 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Blogs</span>
                             <span class="info-box-number">
-                                {!! $blog_count !!} <small>total</small>
+                                {!! $blog_count->count !!} <small>total</small>
                             </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -77,7 +77,7 @@
             <!-- /.row -->
 
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header border-0">
                             <h3 class="card-title">Recent Appointments</h3>
@@ -114,46 +114,8 @@
                     </div>
                     <!-- /.card -->
                 </div>
-
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">Today's Appointments</h3>
-                        </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-striped table-valign-middle">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Created at</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($today_applications as $application)
-                                        <tr>
-                                            <td>{!! $application->ID !!}</td>
-                                            <td>{!! json_decode($application->application_data)->name !!}</td>
-                                            <td>{!! Date::set($application->created_at)->get('d.m.Y | H:i') !!}</td>
-                                            <td>
-                                                <a href="{!! route('application_detail', ['applicationId' => $application->ID]) !!}" class="text-muted" title="Detayları gör">
-                                                    <i class="fas fa-angle-double-right"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-                </div>
             </div>
-
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- /.content -->
 
 @endsection
