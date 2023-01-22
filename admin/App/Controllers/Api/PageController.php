@@ -9,16 +9,31 @@ class PageController extends BaseController
 
     public function index()
     {
+        $services = array();
         $page_data = Model::run('page')->getPage(1);
         $page_title = !empty($page_data->seo_title) ? $page_data->seo_title : 'Home';
 
         $this->pageDataGenerator($page_title, $page_data);
 
+        $services_data = Model::run('service')->getServices();
+
+        if($services_data){
+            foreach ($services_data as $service){
+                $services[] = [
+                    'ID' => intval($service->ID),
+                    'service_name' => $service->service_name,
+                    'service_detail' => $service->service_detail,
+                    'service_link' => $service->service_link,
+                    'service_image' => base_url('Public/uploads/services/') . $service->service_image
+                ];
+            }
+        }
+
         $content = [
             'title' => $this->pageData['title'],
             'description' => $this->pageData['description'],
             'keywords' => $this->pageData['keywords'],
-            'services' => Model::run('service')->getServices(),
+            'services' => $services,
             'about' => Model::run('page')->getPage(2),
             'home_blog' => Model::run('blog')->getStickyBlogs(),
             'faq' => Model::run('faq')->getFaqs(),
