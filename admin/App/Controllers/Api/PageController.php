@@ -38,7 +38,7 @@ class PageController extends BaseController
                     'title' => $blog->title,
                     'slug' => $blog->slug,
                     'item_id' => $blog->item_id,
-                    'cover_image' => base_url('Public/uploads/services/') . $blog->cover_image,
+                    'cover_image' => base_url('Public/uploads/blogs/') . $blog->cover_image,
                     'seo_description' => $blog->seo_description,
                     'status' => $blog->status,
                     'publish_date' => $blog->publish_date,
