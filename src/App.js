@@ -5,11 +5,16 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import Blogs from "./pages/blogs";
 import MainLayout from "./components/layouts/MainLayout";
+import { HelmetProvider } from 'react-helmet-async';
+
 
 function App() {
+  const helmetContext = {};
+
   return (
     <>
-      <Routes>
+    <HelmetProvider context={helmetContext} >
+    <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} exact />
           <Route path="/blogs" element={<Blogs />} />
@@ -17,6 +22,9 @@ function App() {
           <Route path="/blogs/:id" element={<BlogDetail />} />
         </Route>
       </Routes>
+
+    </HelmetProvider>
+  
     </>
   );
 }

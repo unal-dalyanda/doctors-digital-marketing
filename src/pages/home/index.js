@@ -10,6 +10,7 @@ import { servicesData } from "../../data/servicesData";
 import Faq from "../../components/faq/faq";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function Home() {
   const hashs = ["services", "contact", "about-us"];
@@ -36,6 +37,13 @@ function Home() {
   });
   return (
     <>
+      <Helmet>
+        <title>Doctors Digital Marketing</title>
+        <meta
+          name="description"
+          content="Doctors Digital Marketing Homepage"
+        />
+      </Helmet>
       <ImagesSlider imagesdata={imagesdata} />
 
       <ServicesCard servicesData={servicesData} />
