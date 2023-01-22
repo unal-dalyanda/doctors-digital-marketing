@@ -10,12 +10,14 @@ class PageController extends BaseController
     public function index()
     {
         $services = array();
+        $home_blogs = array();
         $page_data = Model::run('page')->getPage(1);
         $page_title = !empty($page_data->seo_title) ? $page_data->seo_title : 'Home';
 
         $this->pageDataGenerator($page_title, $page_data);
 
         $services_data = Model::run('service')->getServices();
+        $blogs_data = Model::run('blog')->getStickyBlogs();
 
         if($services_data){
             foreach ($services_data as $service){
@@ -29,13 +31,28 @@ class PageController extends BaseController
             }
         }
 
+        if($blogs_data){
+            foreach ($blogs_data as $blog){
+                $home_blogs[] = [
+                    'ID' => intval($blog->ID),
+                    'title' => $blog->title,
+                    'slug' => $blog->slug,
+                    'item_id' => $blog->item_id,
+                    'cover_image' => base_url('Public/uploads/services/') . $blog->cover_image,
+                    'seo_description' => $blog->seo_description,
+                    'status' => $blog->status,
+                    'publish_date' => $blog->publish_date,
+                ];
+            }
+        }
+
         $content = [
             'title' => $this->pageData['title'],
             'description' => $this->pageData['description'],
             'keywords' => $this->pageData['keywords'],
             'services' => $services,
             'about' => Model::run('page')->getPage(2),
-            'home_blog' => Model::run('blog')->getStickyBlogs(),
+            'home_blog' => $home_blogs,
             'faq' => Model::run('faq')->getFaqs(),
             'contact_email' => $this->pageData['main_email'],
             'social_phone' => $this->pageData['main_phone'],
