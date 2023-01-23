@@ -11,6 +11,7 @@ class PageController extends BaseController
     {
         $services = array();
         $home_blogs = array();
+        $home_about = array();
         $page_data = Model::run('page')->getPage(1);
         $page_title = !empty($page_data->seo_title) ? $page_data->seo_title : 'Home';
 
@@ -18,6 +19,7 @@ class PageController extends BaseController
 
         $services_data = Model::run('service')->getServices();
         $blogs_data = Model::run('blog')->getStickyBlogs();
+        $about_data = Model::run('page')->getPage(2);
 
         if($services_data){
             foreach ($services_data as $service){
@@ -46,12 +48,26 @@ class PageController extends BaseController
             }
         }
 
+        if($about_data){
+            foreach ($about_data as $data){
+                $home_blogs[] = [
+                    'ID' => intval($data->ID),
+                    'title' => $data->title,
+                    'sub_title' => $data->sub_title,
+                    'page_content' => $data->page_content,
+                    'cover_image' => base_url('Public/uploads/pages/') . $data->cover_image,
+                    'seo_title' => $data->seo_title,
+                    'seo_description' => $data->seo_description
+                ];
+            }
+        }
+
         $content = [
             'title' => $this->pageData['title'],
             'description' => $this->pageData['description'],
             'keywords' => $this->pageData['keywords'],
             'services' => $services,
-            'about' => Model::run('page')->getPage(2),
+            'about' => $home_about,
             'home_blog' => $home_blogs,
             'faq' => Model::run('faq')->getFaqs(),
             'contact_email' => $this->pageData['main_email'],
