@@ -49,17 +49,15 @@ class PageController extends BaseController
         }
 
         if($about_data){
-            foreach ($about_data as $data){
-                $home_blogs[] = [
-                    'ID' => intval($data->ID),
-                    'title' => $data->title,
-                    'sub_title' => $data->sub_title,
-                    'page_content' => $data->page_content,
-                    'cover_image' => base_url('Public/uploads/pages/') . $data->cover_image,
-                    'seo_title' => $data->seo_title,
-                    'seo_description' => $data->seo_description
-                ];
-            }
+            $home_about = [
+                'ID' => intval($about_data->ID),
+                'title' => $about_data->title,
+                'sub_title' => $about_data->sub_title,
+                'page_content' => $about_data->page_content,
+                'cover_image' => base_url('Public/uploads/pages/') . $about_data->cover_image,
+                'seo_title' => $about_data->seo_title,
+                'seo_description' => $about_data->seo_description
+            ];
         }
 
         $content = [
